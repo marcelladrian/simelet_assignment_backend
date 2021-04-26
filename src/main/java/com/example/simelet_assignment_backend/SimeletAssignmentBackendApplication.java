@@ -8,7 +8,6 @@ public class SimeletAssignmentBackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SimeletAssignmentBackendApplication.class, args);
-        System.out.println("Hello World!");
     }
 
 }
