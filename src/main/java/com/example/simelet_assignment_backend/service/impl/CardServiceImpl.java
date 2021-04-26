@@ -2,8 +2,10 @@ package com.example.simelet_assignment_backend.service.impl;
 
 import com.example.simelet_assignment_backend.io.entity.BalanceEntity;
 import com.example.simelet_assignment_backend.io.entity.CardEntity;
+import com.example.simelet_assignment_backend.io.entity.UsersEntity;
 import com.example.simelet_assignment_backend.io.irepository.BalanceRepository;
 import com.example.simelet_assignment_backend.io.irepository.CardRepository;
+import com.example.simelet_assignment_backend.io.irepository.UsersRepository;
 import com.example.simelet_assignment_backend.service.iservice.ICardInterface;
 import com.example.simelet_assignment_backend.shared.dto.CardDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
@@ -21,7 +23,7 @@ public class CardServiceImpl implements ICardInterface {
     CardRepository cardRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UsersRepository userRepository;
 
     @Autowired
     BalanceRepository balanceRepository;
@@ -34,7 +36,7 @@ public class CardServiceImpl implements ICardInterface {
         List<CardDTO> value = new ArrayList<>();
         ModelMapper mapper = new ModelMapper();
 
-        UserEntity userEntity = userRepository.findByUserid(userId);
+        UsersEntity userEntity = userRepository.findByUserId(userId);
         List<CardEntity> cards = cardRepository.findAllByUser(userEntity);
 
         for (CardEntity cardEntity:cards){
@@ -53,13 +55,15 @@ public class CardServiceImpl implements ICardInterface {
     }
 
     @Override
-    public CardDTO addNewCard(String balanceId, CardDTO cardDTO) {
+    public CardDTO addNewCard(String userId, String balanceId, CardDTO cardDTO) {
         ModelMapper mapper = new ModelMapper();
 
-        BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
+        UsersEntity usersEntity = userRepository.findByUserId(userId);
+        BalanceEntity balanceEntity = balanceRepository.findByBalanceId(balanceId);
 
         CardEntity cardEntity = mapper.map(cardDTO, CardEntity.class);
         cardEntity.setBalanceEntity(balanceEntity);
+        cardEntity.setUser(usersEntity);
         cardEntity.setCardid(generateRandomPublicId.generateUserId(30));
 
         CardEntity createdValue = cardRepository.save(cardEntity);

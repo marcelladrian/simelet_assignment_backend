@@ -9,7 +9,7 @@ public interface ICardInterface {
 
     CardDTO getCardWithCardId(String cardId);
 
-    CardDTO addNewCard(String balanceId, CardDTO cardDTO);
+    CardDTO addNewCard(String userId, String balanceId, CardDTO cardDTO);
 
     CardDTO updateCard(String cardId, CardDTO cardDTO);
 

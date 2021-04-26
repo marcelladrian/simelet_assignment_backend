@@ -2,6 +2,7 @@ package com.example.simelet_assignment_backend.io.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,7 @@ public class BalanceEntity implements Serializable {
     private String barcode;
 
     @OneToMany(mappedBy = "balanceEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CardEntity> cardEntity;
+    private List<CardEntity> cardEntity = new ArrayList<>();
 
     public long getId() {
         return id;

@@ -1,7 +1,7 @@
 package com.example.simelet_assignment_backend.shared.utils;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -13,13 +13,13 @@ public class GenerateRandomPublicId {
     private final int ITERATIONS = 10000;
     private final int KEY_LENGTH = 256;
 
-    public String generateUserId(int length){
+    public String generateUserId(int length) {
         return generateRandomString(length);
     }
 
-    private String generateRandomString(int length){
+    private String generateRandomString(int length) {
         StringBuilder returnValue = new StringBuilder(length);
-        for(int i=0;i<length;i++){
+        for (int i = 0; i < length; i++) {
             returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
         }
         return new String(returnValue);

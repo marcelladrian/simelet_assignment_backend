@@ -23,7 +23,7 @@ public class CardEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
-    private UserEntity user;
+    private UsersEntity user;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -31,8 +31,8 @@ public class CardEntity implements Serializable {
     private BalanceEntity balanceEntity;
 
 
-    @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionEntity> transactionEntity;
+//    @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<TransactionEntity> transactionEntity;
 
     @Column(nullable = false)
     private String cardimage;
@@ -71,11 +71,11 @@ public class CardEntity implements Serializable {
         this.name = name;
     }
 
-    public UserEntity getUser() {
+    public UsersEntity getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UsersEntity user) {
         this.user = user;
     }
 
@@ -87,13 +87,13 @@ public class CardEntity implements Serializable {
         this.balanceEntity = balanceEntity;
     }
 
-    public List<TransactionEntity> getTransactionEntity() {
-        return transactionEntity;
-    }
-
-    public void setTransactionEntity(List<TransactionEntity> transactionEntity) {
-        this.transactionEntity = transactionEntity;
-    }
+//    public List<TransactionEntity> getTransactionEntity() {
+//        return transactionEntity;
+//    }
+//
+//    public void setTransactionEntity(List<TransactionEntity> transactionEntity) {
+//        this.transactionEntity = transactionEntity;
+//    }
 
     public String getCardimage() {
         return cardimage;

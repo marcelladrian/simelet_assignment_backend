@@ -26,7 +26,7 @@ public class BalanceController {
         return mapper.map(createdValue, BalanceResponse.class);
     }
 
-    @PutMapping(path = "/balanceId",
+    @PutMapping(path = "/{balanceId}",
             produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public BalanceResponse updateBalance(@PathVariable String balanceId, @RequestBody BalanceRequest balanceRequest){
         ModelMapper mapper = new ModelMapper();
@@ -37,7 +37,7 @@ public class BalanceController {
         return mapper.map(updatedValue, BalanceResponse.class);
     }
 
-    @GetMapping(path = "/balanceId", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/{balanceId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public BalanceResponse getBalanceByBalanceId(@PathVariable String balanceId){
         ModelMapper mapper = new ModelMapper();
 

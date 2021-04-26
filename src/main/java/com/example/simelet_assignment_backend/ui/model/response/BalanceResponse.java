@@ -9,7 +9,6 @@ public class BalanceResponse {
     private long balance;
     private String password;
     private String barcode;
-    private List<CardDTO> cards;
 
     public String getBalanceId() {
         return balanceId;
@@ -41,13 +40,5 @@ public class BalanceResponse {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
-    }
-
-    public List<CardDTO> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<CardDTO> cards) {
-        this.cards = cards;
     }
 }

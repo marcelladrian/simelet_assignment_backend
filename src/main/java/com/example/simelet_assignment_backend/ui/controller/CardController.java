@@ -18,7 +18,7 @@ public class CardController {
     @Autowired
     ICardInterface iCardInterface;
 
-    @GetMapping(path = "/userId", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<CardResponse> getAllCards(@PathVariable String userId){
         List<CardResponse> value = new ArrayList<>();
         ModelMapper mapper = new ModelMapper();
@@ -31,7 +31,7 @@ public class CardController {
         return value;
     }
 
-    @GetMapping(path = "/cardId", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/{userId}/{cardId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public CardResponse getCardWithCardId(@PathVariable String cardId){
         ModelMapper mapper = new ModelMapper();
 
@@ -40,20 +40,20 @@ public class CardController {
         return mapper.map(cardDTO, CardResponse.class);
     }
 
-    @PostMapping(path = "/balanceId",
+    @PostMapping(path = "/{userId}/{balanceId}",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public CardResponse addNewCard(@PathVariable String balanceId, @RequestBody CardRequest cardRequest){
+    public CardResponse addNewCard(@PathVariable String userId, @PathVariable String balanceId, @RequestBody CardRequest cardRequest){
         ModelMapper mapper = new ModelMapper();
 
         CardDTO cardDTO = mapper.map(cardRequest, CardDTO.class);
 
-        CardDTO createdCard = iCardInterface.addNewCard(balanceId, cardDTO);
+        CardDTO createdCard = iCardInterface.addNewCard(userId, balanceId, cardDTO);
 
         return mapper.map(createdCard, CardResponse.class);
     }
 
-    @PutMapping(path = "/cardId",
+    @PutMapping(path = "/{cardId}",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     public CardResponse updateCardName(@PathVariable String cardId, @RequestBody CardRequest cardRequest){
@@ -66,7 +66,7 @@ public class CardController {
         return mapper.map(updatedCard, CardResponse.class);
     }
 
-    @DeleteMapping(path = "/cardId",
+    @DeleteMapping(path = "/{cardId}",
     produces = {MediaType.APPLICATION_JSON_VALUE})
     public CardResponse deleteCard(@PathVariable String cardId){
         ModelMapper mapper = new ModelMapper();

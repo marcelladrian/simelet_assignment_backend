@@ -31,7 +31,7 @@ public class BalanceServiceImpl implements IBalanceInterface {
     @Override
     public BalanceDTO updateBalance(String balanceId, BalanceDTO balanceDTO) {
         ModelMapper mapper = new ModelMapper();
-        BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
+        BalanceEntity balanceEntity = balanceRepository.findByBalanceId(balanceId);
 
         balanceEntity.setBalance(balanceDTO.getBalance());
         balanceEntity.setPassword(balanceDTO.getPassword());
@@ -43,8 +43,7 @@ public class BalanceServiceImpl implements IBalanceInterface {
     @Override
     public BalanceDTO getBalanceByBalanceId(String balanceId) {
         ModelMapper mapper = new ModelMapper();
-        BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
-
+        BalanceEntity balanceEntity = balanceRepository.findByBalanceId(balanceId);
 
         return mapper.map(balanceEntity, BalanceDTO.class);
     }
