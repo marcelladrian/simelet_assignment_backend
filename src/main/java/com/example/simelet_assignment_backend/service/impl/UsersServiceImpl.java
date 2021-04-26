@@ -38,4 +38,31 @@ public class UsersServiceImpl implements IServiceUsers {
         UsersDTO value = mapper.map(storedData, UsersDTO.class);
         return value;
     }
+
+    @Override
+    public UsersDTO editUser(String userId, UsersDTO usersDTO) {
+        UsersEntity usersEntity = usersRepository.findByUserId(userId);
+
+        usersEntity.setImage(usersDTO.getImage());
+        usersEntity.setNoHp(usersDTO.getNoHp());
+        usersEntity.setName(usersDTO.getName());
+        usersEntity.setEmail(usersDTO.getEmail());
+        usersEntity.setPassword(usersDTO.getPassword());
+
+        UsersEntity value = usersRepository.save(usersEntity);
+
+        return new ModelMapper().map(value, UsersDTO.class);
+    }
+
+    @Override
+    public UsersDTO deleteUser(String userId) {
+        UsersEntity usersEntity = usersRepository.findByUserId(userId);
+
+        usersEntity.setDeleted(true);
+
+        UsersEntity value = usersRepository.save(usersEntity);
+
+        return new ModelMapper().map(value, UsersDTO.class);
+    }
+
 }

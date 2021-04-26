@@ -6,4 +6,8 @@ public interface IServiceUsers {
     UsersDTO getUserByUserId(String userId);
 
     UsersDTO addNewUsers(UsersDTO userDTO);
+
+    UsersDTO editUser(String userId, UsersDTO usersDTO);
+
+    UsersDTO deleteUser(String userId);
 }
