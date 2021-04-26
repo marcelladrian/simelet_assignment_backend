@@ -36,7 +36,7 @@ public class TransactionsController {
         return value;
     }
     //Post Transactions
-    @PostMapping(path = "{cardId}", consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @PostMapping(path = "{/cardId}", consumes = {MediaType.APPLICATION_JSON_VALUE},
                 produces = {MediaType.APPLICATION_JSON_VALUE})
     public TransactionsResponse postNewTransactions(@PathVariable String cardId,
                                                     @RequestBody TransactionsRequest transactionsRequest){
