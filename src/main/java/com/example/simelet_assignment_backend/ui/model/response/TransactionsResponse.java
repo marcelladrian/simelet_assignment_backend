@@ -1,5 +1,7 @@
 package com.example.simelet_assignment_backend.ui.model.response;
 
+import com.example.simelet_assignment_backend.shared.dto.CardDTO;
+
 import java.time.LocalDateTime;
 
 public class TransactionsResponse {
@@ -9,6 +11,7 @@ public class TransactionsResponse {
     private LocalDateTime tanggal;
     private String note;
     private boolean isDeleted;
+    private CardDTO cardDTO;
     private String transactionsId;
 
     public String getName() {
@@ -49,6 +52,14 @@ public class TransactionsResponse {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public CardDTO getCardDTO() {
+        return cardDTO;
+    }
+
+    public void setCardDTO(CardDTO cardDTO) {
+        this.cardDTO = cardDTO;
     }
 
     public String getTransactionsId() {

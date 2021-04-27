@@ -8,5 +8,11 @@ public interface IServiceTransactions {
 
     List<TransactionsDTO> getAllTransactions();
 
-    TransactionsDTO postNewTransactions(String cardId, TransactionsDTO transactionsDTO);
+    TransactionsDTO postNewTransactions(String cardid, TransactionsDTO transactionsDTO);
+
+    List<TransactionsDTO> getAllTransactionsByCardId(String cardid);
+
+    TransactionsDTO deleteTransactions(String cardid, String transactionsid);
+
+//    List<TransactionsDTO> getAllTransactionsByUserId(String userid);
 }

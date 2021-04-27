@@ -11,6 +11,7 @@ public class TransactionsDTO {
     private LocalDateTime tanggal;
     private String note;
     private boolean isDeleted;
+    private CardDTO cardDTO;
     private String transactionsId;
 
     public long getId() {
@@ -59,6 +60,14 @@ public class TransactionsDTO {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public CardDTO getCardDTO() {
+        return cardDTO;
+    }
+
+    public void setCardDTO(CardDTO cardDTO) {
+        this.cardDTO = cardDTO;
     }
 
     public String getTransactionsId() {

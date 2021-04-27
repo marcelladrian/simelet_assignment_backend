@@ -28,6 +28,10 @@ public class TransactionsEntity implements Serializable {
     @Column(name = "is_deleted")
     private boolean isDeleted = false;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
+    private CardEntity cardEntity;
+
     @Column(nullable = false)
     private String transactionsId;
 
@@ -79,6 +83,14 @@ public class TransactionsEntity implements Serializable {
         isDeleted = deleted;
     }
 
+    public CardEntity getCardEntity() {
+        return cardEntity;
+    }
+
+    public void setCardEntity(CardEntity cardEntity) {
+        this.cardEntity = cardEntity;
+    }
+
     public String getTransactionsId() {
         return transactionsId;
     }
@@ -86,5 +98,4 @@ public class TransactionsEntity implements Serializable {
     public void setTransactionsId(String transactionsId) {
         this.transactionsId = transactionsId;
     }
-
 }
