@@ -7,7 +7,7 @@ import java.util.List;
 public interface ICardInterface {
     List<CardDTO> getAllCard(String userId);
 
-    CardDTO getCardWithCardId(String cardId);
+    CardDTO getCardWithCardId(String userId, String cardId, String balanceId);
 
     CardDTO addNewCard(String userId, String balanceId, CardDTO cardDTO);
 

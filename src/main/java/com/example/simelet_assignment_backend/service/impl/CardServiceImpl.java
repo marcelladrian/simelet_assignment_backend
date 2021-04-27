@@ -7,29 +7,29 @@ import com.example.simelet_assignment_backend.io.irepository.BalanceRepository;
 import com.example.simelet_assignment_backend.io.irepository.CardRepository;
 import com.example.simelet_assignment_backend.io.irepository.UsersRepository;
 import com.example.simelet_assignment_backend.service.iservice.ICardInterface;
+import com.example.simelet_assignment_backend.shared.dto.BalanceDTO;
 import com.example.simelet_assignment_backend.shared.dto.CardDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.smartcardio.Card;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CardServiceImpl implements ICardInterface {
-    @Autowired
-    CardRepository cardRepository;
+    private final CardRepository cardRepository;
+    private final UsersRepository userRepository;
+    private final BalanceRepository balanceRepository;
+    private GenerateRandomPublicId generateRandomPublicId;
 
-    @Autowired
-    UsersRepository userRepository;
+    public CardServiceImpl(CardRepository cardRepository, UsersRepository userRepository, BalanceRepository balanceRepository, GenerateRandomPublicId generateRandomPublicId) {
+        this.cardRepository = cardRepository;
+        this.userRepository = userRepository;
+        this.balanceRepository = balanceRepository;
+        this.generateRandomPublicId = generateRandomPublicId;
+    }
 
-    @Autowired
-    BalanceRepository balanceRepository;
-
-    @Autowired
-    GenerateRandomPublicId generateRandomPublicId;
 
     @Override
     public List<CardDTO> getAllCard(String userId) {
@@ -47,11 +47,15 @@ public class CardServiceImpl implements ICardInterface {
     }
 
     @Override
-    public CardDTO getCardWithCardId(String cardId) {
+    public CardDTO getCardWithCardId(String userId, String cardId, String balanceId) {
         ModelMapper mapper = new ModelMapper();
+        UsersEntity usersEntity = userRepository.findByUserId(userId);
+        BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
 
-        CardEntity cardEntity = cardRepository.findByCardid(cardId);
-        return mapper.map(cardEntity, CardDTO.class);
+        CardEntity cardEntity = cardRepository.findByUserAndCardidAndBalanceEntity(usersEntity, cardId, balanceEntity);
+        CardDTO value = mapper.map(cardEntity, CardDTO.class);
+        value.setBalanceDTO(mapper.map(cardEntity.getBalanceEntity(), BalanceDTO.class));
+        return value;
     }
 
     @Override
@@ -59,7 +63,7 @@ public class CardServiceImpl implements ICardInterface {
         ModelMapper mapper = new ModelMapper();
 
         UsersEntity usersEntity = userRepository.findByUserId(userId);
-        BalanceEntity balanceEntity = balanceRepository.findByBalanceId(balanceId);
+        BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
 
         CardEntity cardEntity = mapper.map(cardDTO, CardEntity.class);
         cardEntity.setBalanceEntity(balanceEntity);
@@ -76,7 +80,7 @@ public class CardServiceImpl implements ICardInterface {
 
         CardEntity entity = cardRepository.findByCardid(cardId);
         entity.setName(cardDTO.getName());
-        entity.setCardimage(cardDTO.getCardImage());
+        entity.setCardimage(cardDTO.getCardimage());
 
         CardEntity updatedValue = cardRepository.save(entity);
         return mapper.map(updatedValue, CardDTO.class);

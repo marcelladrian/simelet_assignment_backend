@@ -5,7 +5,6 @@ import com.example.simelet_assignment_backend.shared.dto.BalanceDTO;
 import com.example.simelet_assignment_backend.ui.model.request.BalanceRequest;
 import com.example.simelet_assignment_backend.ui.model.response.BalanceResponse;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/balances")
 public class BalanceController {
-    @Autowired
-    IBalanceInterface iBalanceInterface;
+    private final IBalanceInterface iBalanceInterface;
+
+    public BalanceController(IBalanceInterface iBalanceInterface) {
+        this.iBalanceInterface = iBalanceInterface;
+    }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
     public BalanceResponse addNewBalance(@RequestBody BalanceRequest balanceRequest){

@@ -5,10 +5,19 @@ import java.util.List;
 
 public class BalanceDTO implements Serializable {
     private static final long serialVersionUID = -3345435373187463119L;
+    private long id;
     private String balanceId;
     private long balance;
     private String password;
     private String barcode;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getBalanceId() {
         return balanceId;

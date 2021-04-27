@@ -26,7 +26,7 @@ public class CardEntity implements Serializable {
     private UsersEntity user;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "balanceid")
     private BalanceEntity balanceEntity;
 

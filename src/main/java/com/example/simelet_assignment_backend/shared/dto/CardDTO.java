@@ -1,14 +1,17 @@
 package com.example.simelet_assignment_backend.shared.dto;
 
+import org.apache.catalina.User;
+
 import java.io.Serializable;
 
 public class CardDTO implements Serializable {
     private static final long serialVersionUID = -1731146540324119309L;
     private long id;
-    private String cardId;
+    private String cardid;
     private String name;
+    private UsersDTO usersDTO;
     private BalanceDTO balanceDTO;
-    private String cardImage;
+    private String cardimage;
     private boolean isDeleted;
 
     public long getId() {
@@ -19,12 +22,12 @@ public class CardDTO implements Serializable {
         this.id = id;
     }
 
-    public String getCardId() {
-        return cardId;
+    public String getCardid() {
+        return cardid;
     }
 
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
+    public void setCardid(String cardid) {
+        this.cardid = cardid;
     }
 
     public String getName() {
@@ -35,6 +38,14 @@ public class CardDTO implements Serializable {
         this.name = name;
     }
 
+    public UsersDTO getUsersDTO() {
+        return usersDTO;
+    }
+
+    public void setUsersDTO(UsersDTO usersDTO) {
+        this.usersDTO = usersDTO;
+    }
+
     public BalanceDTO getBalanceDTO() {
         return balanceDTO;
     }
@@ -43,12 +54,12 @@ public class CardDTO implements Serializable {
         this.balanceDTO = balanceDTO;
     }
 
-    public String getCardImage() {
-        return cardImage;
+    public String getCardimage() {
+        return cardimage;
     }
 
-    public void setCardImage(String cardImage) {
-        this.cardImage = cardImage;
+    public void setCardimage(String cardimage) {
+        this.cardimage = cardimage;
     }
 
     public boolean isDeleted() {

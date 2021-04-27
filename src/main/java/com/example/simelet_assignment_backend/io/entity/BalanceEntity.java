@@ -16,7 +16,7 @@ public class BalanceEntity implements Serializable {
     private long id;
 
     @Column(nullable = false)
-    private String balanceId;
+    private String balanceid;
 
     @Column(nullable = false)
     private long balance;
@@ -28,7 +28,7 @@ public class BalanceEntity implements Serializable {
     private String barcode;
 
     @OneToMany(mappedBy = "balanceEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CardEntity> cardEntity = new ArrayList<>();
+    private List<CardEntity> cardentity = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -38,12 +38,12 @@ public class BalanceEntity implements Serializable {
         this.id = id;
     }
 
-    public String getBalanceId() {
-        return balanceId;
+    public String getBalanceid() {
+        return balanceid;
     }
 
-    public void setBalanceId(String balanceId) {
-        this.balanceId = balanceId;
+    public void setBalanceid(String balanceid) {
+        this.balanceid = balanceid;
     }
 
     public long getBalance() {
@@ -70,11 +70,11 @@ public class BalanceEntity implements Serializable {
         this.barcode = barcode;
     }
 
-    public List<CardEntity> getCardEntity() {
-        return cardEntity;
+    public List<CardEntity> getCardentity() {
+        return cardentity;
     }
 
-    public void setCardEntity(List<CardEntity> cardEntity) {
-        this.cardEntity = cardEntity;
+    public void setCardentity(List<CardEntity> cardentity) {
+        this.cardentity = cardentity;
     }
 }
