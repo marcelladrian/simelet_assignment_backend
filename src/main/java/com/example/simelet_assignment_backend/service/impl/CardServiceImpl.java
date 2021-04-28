@@ -21,7 +21,7 @@ public class CardServiceImpl implements ICardInterface {
     private final CardRepository cardRepository;
     private final UsersRepository userRepository;
     private final BalanceRepository balanceRepository;
-    private GenerateRandomPublicId generateRandomPublicId;
+    private final GenerateRandomPublicId generateRandomPublicId;
 
     public CardServiceImpl(CardRepository cardRepository, UsersRepository userRepository, BalanceRepository balanceRepository, GenerateRandomPublicId generateRandomPublicId) {
         this.cardRepository = cardRepository;

@@ -14,5 +14,5 @@ public interface IServiceTransactions {
 
     TransactionsDTO deleteTransactions(String cardid, String transactionsid);
 
-//    List<TransactionsDTO> getAllTransactionsByUserId(String userid);
+    List<TransactionsDTO> getAllTransactionsByUserId(String userid);
 }

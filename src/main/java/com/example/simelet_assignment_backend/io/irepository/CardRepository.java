@@ -9,5 +9,8 @@ import java.util.List;
 
 public interface CardRepository extends JpaRepository<CardEntity, Long> {
     List<CardEntity> findAllByUser(UsersEntity userEntity);
+
     CardEntity findByCardid(String cardId);
+
     CardEntity findByUserAndCardidAndBalanceEntity(UsersEntity usersEntity, String cardId, BalanceEntity balanceEntity);
+}

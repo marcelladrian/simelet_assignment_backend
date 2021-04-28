@@ -48,7 +48,7 @@ public class TransactionsController {
         return value;
     }
     //Get Transactions by card id
-    @GetMapping(path = "/{cardid}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/byCard/{cardid}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<TransactionsResponse> getAllTransactionsByCardId(@PathVariable String cardid){
         ModelMapper mapper = new ModelMapper();
         List<TransactionsResponse> value = new ArrayList<>();
@@ -69,19 +69,19 @@ public class TransactionsController {
 
         return mapper.map(transactionsDTO, TransactionsResponse.class);
     }
-    //Get Transactions by user id
-//    @GetMapping(path = "/{userid}", produces = {MediaType.APPLICATION_JSON_VALUE})
-//    public List<TransactionsResponse> getAllTransactionsByUserId(@PathVariable String userid){
-//        ModelMapper mapper = new ModelMapper();
-//        List<TransactionsResponse> value = new ArrayList<>();
-//
-//        List<TransactionsDTO> allTransactions = iServiceTransactions.getAllTransactionsByUserId(userid);
-//
-//        for (TransactionsDTO dto : allTransactions){
-//            value.add(mapper.map(dto, TransactionsResponse.class));
-//        }
-//        return value;
-//    }
+//    Get Transactions by user id
+    @GetMapping(path = "/byUser/{userid}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<TransactionsResponse> getAllTransactionsByUserId(@PathVariable String userid){
+        ModelMapper mapper = new ModelMapper();
+        List<TransactionsResponse> value = new ArrayList<>();
+
+        List<TransactionsDTO> allTransactions = iServiceTransactions.getAllTransactionsByUserId(userid);
+
+        for (TransactionsDTO dto : allTransactions){
+            value.add(mapper.map(dto, TransactionsResponse.class));
+        }
+        return value;
+    }
 
 
 }

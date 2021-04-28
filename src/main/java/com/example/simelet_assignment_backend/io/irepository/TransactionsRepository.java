@@ -12,6 +12,4 @@ public interface TransactionsRepository extends JpaRepository<TransactionsEntity
     List<TransactionsEntity> findAllByCardEntity(CardEntity cardEntity);
 
     TransactionsEntity findByTransactionsId(String transactionsid);
-
-//    List<TransactionsEntity> findAllByUsersEntity(UsersEntity usersEntity);
 }
