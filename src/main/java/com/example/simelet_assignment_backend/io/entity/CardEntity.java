@@ -31,8 +31,8 @@ public class CardEntity implements Serializable {
     private BalanceEntity balanceEntity;
 
 
-//    @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TransactionEntity> transactionEntity;
+    @OneToMany(mappedBy = "cardEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TransactionsEntity> transactionEntity;
 
     @Column(nullable = false)
     private String cardimage;
@@ -87,13 +87,13 @@ public class CardEntity implements Serializable {
         this.balanceEntity = balanceEntity;
     }
 
-//    public List<TransactionEntity> getTransactionEntity() {
-//        return transactionEntity;
-//    }
-//
-//    public void setTransactionEntity(List<TransactionEntity> transactionEntity) {
-//        this.transactionEntity = transactionEntity;
-//    }
+    public List<TransactionsEntity> getTransactionEntity() {
+        return transactionEntity;
+    }
+
+    public void setTransactionEntity(List<TransactionsEntity> transactionEntity) {
+        this.transactionEntity = transactionEntity;
+    }
 
     public String getCardimage() {
         return cardimage;
