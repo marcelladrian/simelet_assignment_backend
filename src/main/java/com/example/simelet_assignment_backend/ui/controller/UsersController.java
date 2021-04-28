@@ -41,7 +41,7 @@ public class UsersController {
     public UsersResponse loginUser(@RequestBody UsersRequest usersRequest){
         ModelMapper mapper = new ModelMapper();
         UsersDTO usersDTO = mapper.map(usersRequest, UsersDTO.class);
-        UsersDTO createdUser = iServiceUsers.addNewUsers(usersDTO);
+        UsersDTO createdUser = iServiceUsers.login(usersDTO);
 
         UsersResponse value = mapper.map(createdUser, UsersResponse.class);
         return value;

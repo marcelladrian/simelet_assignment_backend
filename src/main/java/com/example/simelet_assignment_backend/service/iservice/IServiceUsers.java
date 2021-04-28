@@ -10,4 +10,6 @@ public interface IServiceUsers {
     UsersDTO editUser(String userId, UsersDTO usersDTO);
 
     UsersDTO deleteUser(String userId);
+
+    UsersDTO login(UsersDTO usersDTO);
 }
