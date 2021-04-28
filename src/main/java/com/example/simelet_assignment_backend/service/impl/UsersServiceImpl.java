@@ -40,6 +40,19 @@ public class UsersServiceImpl implements IServiceUsers {
     }
 
     @Override
+    public UsersDTO login(UsersDTO usersDTO) {
+        ModelMapper mapper = new ModelMapper();
+        String userName = usersDTO.getUserName();
+
+        UsersEntity usersEntity = usersRepository.findByUserName(userName);
+
+        if (usersEntity == null || !usersEntity.getPassword().equals(usersDTO.getPassword()))
+            return null;
+
+        return mapper.map(usersEntity, UsersDTO.class);
+    }
+
+    @Override
     public UsersDTO editUser(String userId, UsersDTO usersDTO) {
         UsersEntity usersEntity = usersRepository.findByUserId(userId);
 

@@ -71,7 +71,9 @@ public class CardServiceImpl implements ICardInterface {
         cardEntity.setCardid(generateRandomPublicId.generateUserId(30));
 
         CardEntity createdValue = cardRepository.save(cardEntity);
-        return mapper.map(createdValue, CardDTO.class);
+        CardDTO dtoValue = mapper.map(createdValue, CardDTO.class);
+        dtoValue.setBalanceDTO(mapper.map(createdValue.getBalanceEntity(), BalanceDTO.class));
+        return dtoValue;
     }
 
     @Override
