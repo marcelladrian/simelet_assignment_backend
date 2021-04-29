@@ -20,7 +20,7 @@ public class UsersEntity implements Serializable {
     @Column(nullable = false)
     private String userId;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(50)", length = 50)
+    @Column(nullable = false, columnDefinition = "VARCHAR(50)", length = 50, unique = true)
     private String userName;
 
     @Column(nullable = false)
@@ -29,7 +29,7 @@ public class UsersEntity implements Serializable {
     @Column(nullable = true, columnDefinition = "VARCHAR(50)", length = 50)
     private String name;
 
-    @Column(nullable = true)
+    @Column(nullable = true,  unique = true)
     private String email;
 
     @Column(nullable = true)
