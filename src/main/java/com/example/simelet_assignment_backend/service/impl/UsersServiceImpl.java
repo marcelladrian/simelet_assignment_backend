@@ -8,6 +8,8 @@ import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicI
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class UsersServiceImpl implements IServiceUsers {
     private final UsersRepository usersRepository;
@@ -33,6 +35,7 @@ public class UsersServiceImpl implements IServiceUsers {
         userDTO.setUserId(generateRandomPublicId.generateUserId(30));
 
         UsersEntity usersEntity = mapper.map(userDTO, UsersEntity.class);
+        usersEntity.setCreatedAt(LocalDateTime.now());
         UsersEntity storedData = usersRepository.save(usersEntity);
 
         UsersDTO value = mapper.map(storedData, UsersDTO.class);

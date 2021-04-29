@@ -8,6 +8,8 @@ import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicI
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class BalanceServiceImpl implements IBalanceInterface {
     private final BalanceRepository balanceRepository;
@@ -25,6 +27,8 @@ public class BalanceServiceImpl implements IBalanceInterface {
         BalanceEntity balanceEntity = mapper.map(balanceDTO, BalanceEntity.class);
 
         balanceEntity.setBalanceid(generateRandomPublicId.generateUserId(30));
+        balanceEntity.setCreatedAt(LocalDateTime.now());
+
         BalanceEntity createdValue = balanceRepository.save(balanceEntity);
         return mapper.map(createdValue, BalanceDTO.class);
     }

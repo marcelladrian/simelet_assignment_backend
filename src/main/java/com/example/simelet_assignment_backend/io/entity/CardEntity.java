@@ -2,6 +2,7 @@ package com.example.simelet_assignment_backend.io.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class CardEntity implements Serializable {
 
     @Column(nullable = false)
     private String cardimage;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     private boolean isDeleted = false;
 
@@ -101,5 +105,13 @@ public class CardEntity implements Serializable {
 
     public void setCardimage(String cardimage) {
         this.cardimage = cardimage;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

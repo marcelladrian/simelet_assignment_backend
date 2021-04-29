@@ -14,6 +14,7 @@ import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicI
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +69,7 @@ public class TransactionsImpl implements IServiceTransactions {
         TransactionsEntity entity = mapper.map(transactionsDTO, TransactionsEntity.class);
         entity.setCardEntity(cardEntity);
         entity.setTransactionsId(generateRandomPublicId.generateUserId(35));
+        entity.setTanggal(LocalDateTime.now());
 
         TransactionsEntity storedValue = transactionsRepository.save(entity);
         TransactionsDTO value = mapper.map(storedValue, TransactionsDTO.class);
