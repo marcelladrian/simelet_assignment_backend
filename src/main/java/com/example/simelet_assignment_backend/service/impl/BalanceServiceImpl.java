@@ -6,6 +6,7 @@ import com.example.simelet_assignment_backend.service.iservice.IBalanceInterface
 import com.example.simelet_assignment_backend.shared.dto.BalanceDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,11 @@ import java.time.LocalDateTime;
 public class BalanceServiceImpl implements IBalanceInterface {
     private final BalanceRepository balanceRepository;
     private final GenerateRandomPublicId generateRandomPublicId;
+
+    String pepper = "pepper";
+    int iterations = 200000;
+    int hashWidth = 256;
+    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);;
 
     public BalanceServiceImpl(BalanceRepository balanceRepository, GenerateRandomPublicId generateRandomPublicId) {
         this.balanceRepository = balanceRepository;
@@ -29,6 +35,10 @@ public class BalanceServiceImpl implements IBalanceInterface {
         balanceEntity.setBalanceid(generateRandomPublicId.generateUserId(30));
         balanceEntity.setCreatedAt(LocalDateTime.now());
 
+        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
+        String encodedPassword = pbkdf2PasswordEncoder.encode(balanceEntity.getPassword());
+        balanceEntity.setPassword(encodedPassword);
+
         BalanceEntity createdValue = balanceRepository.save(balanceEntity);
         return mapper.map(createdValue, BalanceDTO.class);
     }
@@ -39,7 +49,10 @@ public class BalanceServiceImpl implements IBalanceInterface {
         BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
 
         balanceEntity.setBalance(balanceDTO.getBalance());
-        balanceEntity.setPassword(balanceDTO.getPassword());
+
+        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
+        String encodedPassword = pbkdf2PasswordEncoder.encode(balanceEntity.getPassword());
+        balanceEntity.setPassword(encodedPassword);
 
         BalanceEntity updatedValue = balanceRepository.save(balanceEntity);
         return mapper.map(updatedValue, BalanceDTO.class);

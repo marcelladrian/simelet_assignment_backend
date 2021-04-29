@@ -18,7 +18,7 @@ public class UsersServiceImpl implements IServiceUsers {
     String pepper = "pepper";
     int iterations = 200000;
     int hashWidth = 256;
-    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);;
+    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);
 
     public UsersServiceImpl(UsersRepository usersRepository, GenerateRandomPublicId generateRandomPublicId) {
         this.usersRepository = usersRepository;
