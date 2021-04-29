@@ -1,7 +1,5 @@
 package com.example.simelet_assignment_backend.ui.model.request;
 
-import java.time.LocalDateTime;
-
 public class TransactionsRequest {
 
     private String name;

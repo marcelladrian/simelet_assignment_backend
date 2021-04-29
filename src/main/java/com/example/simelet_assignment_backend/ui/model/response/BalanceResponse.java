@@ -1,9 +1,5 @@
 package com.example.simelet_assignment_backend.ui.model.response;
 
-import com.example.simelet_assignment_backend.shared.dto.CardDTO;
-
-import java.util.List;
-
 public class BalanceResponse {
     private String balanceId;
     private long balance;

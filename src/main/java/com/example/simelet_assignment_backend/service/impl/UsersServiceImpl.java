@@ -6,6 +6,7 @@ import com.example.simelet_assignment_backend.service.iservice.IServiceUsers;
 import com.example.simelet_assignment_backend.shared.dto.UsersDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,10 @@ import java.time.LocalDateTime;
 public class UsersServiceImpl implements IServiceUsers {
     private final UsersRepository usersRepository;
     private final GenerateRandomPublicId generateRandomPublicId;
+    String pepper = "pepper";
+    int iterations = 200000;
+    int hashWidth = 256;
+    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);;
 
     public UsersServiceImpl(UsersRepository usersRepository, GenerateRandomPublicId generateRandomPublicId) {
         this.usersRepository = usersRepository;
@@ -33,9 +38,14 @@ public class UsersServiceImpl implements IServiceUsers {
     public UsersDTO addNewUsers(UsersDTO userDTO) {
         ModelMapper mapper = new ModelMapper();
         userDTO.setUserId(generateRandomPublicId.generateUserId(30));
-
         UsersEntity usersEntity = mapper.map(userDTO, UsersEntity.class);
         usersEntity.setCreatedAt(LocalDateTime.now());
+
+        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
+        String encodedPassword = pbkdf2PasswordEncoder.encode(usersEntity.getPassword());
+
+        usersEntity.setPassword(encodedPassword);
+
         UsersEntity storedData = usersRepository.save(usersEntity);
 
         UsersDTO value = mapper.map(storedData, UsersDTO.class);
@@ -63,7 +73,10 @@ public class UsersServiceImpl implements IServiceUsers {
         usersEntity.setNoHp(usersDTO.getNoHp());
         usersEntity.setName(usersDTO.getName());
         usersEntity.setEmail(usersDTO.getEmail());
-        usersEntity.setPassword(usersDTO.getPassword());
+        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
+        String encodedPassword = pbkdf2PasswordEncoder.encode(usersEntity.getPassword());
+
+        usersEntity.setPassword(encodedPassword);
 
         UsersEntity value = usersRepository.save(usersEntity);
 

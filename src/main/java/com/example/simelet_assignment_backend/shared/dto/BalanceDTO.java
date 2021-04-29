@@ -1,7 +1,6 @@
 package com.example.simelet_assignment_backend.shared.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class BalanceDTO implements Serializable {
     private static final long serialVersionUID = -3345435373187463119L;

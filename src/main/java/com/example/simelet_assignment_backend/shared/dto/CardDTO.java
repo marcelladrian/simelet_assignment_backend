@@ -1,7 +1,5 @@
 package com.example.simelet_assignment_backend.shared.dto;
 
-import org.apache.catalina.User;
-
 import java.io.Serializable;
 
 public class CardDTO implements Serializable {

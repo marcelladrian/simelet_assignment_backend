@@ -30,6 +30,7 @@ public class UsersController {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public UsersResponse registerUser(@RequestBody UsersRequest usersRequest){
         ModelMapper mapper = new ModelMapper();
+
         UsersDTO userDTO = mapper.map(usersRequest, UsersDTO.class);
         UsersDTO createdUser = iServiceUsers.addNewUsers(userDTO);
 

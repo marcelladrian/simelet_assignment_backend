@@ -7,7 +7,6 @@ import com.example.simelet_assignment_backend.io.irepository.CardRepository;
 import com.example.simelet_assignment_backend.io.irepository.TransactionsRepository;
 import com.example.simelet_assignment_backend.io.irepository.UsersRepository;
 import com.example.simelet_assignment_backend.service.iservice.IServiceTransactions;
-import com.example.simelet_assignment_backend.shared.dto.BalanceDTO;
 import com.example.simelet_assignment_backend.shared.dto.CardDTO;
 import com.example.simelet_assignment_backend.shared.dto.TransactionsDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
