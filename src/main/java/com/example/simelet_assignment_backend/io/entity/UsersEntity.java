@@ -3,6 +3,7 @@ package com.example.simelet_assignment_backend.io.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class UsersEntity implements Serializable {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CardEntity> cardEntity = new ArrayList<>();
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     public long getId() {
         return id;
@@ -132,5 +136,13 @@ public class UsersEntity implements Serializable {
 
     public void setCardEntity(List<CardEntity> cardEntity) {
         this.cardEntity = cardEntity;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -6,7 +6,6 @@ public class TransactionsRequest {
 
     private String name;
     private long amount;
-    private LocalDateTime tanggal;
     private String note;
 
     public String getName() {
@@ -23,14 +22,6 @@ public class TransactionsRequest {
 
     public void setAmount(long amount) {
         this.amount = amount;
-    }
-
-    public LocalDateTime getTanggal() {
-        return tanggal;
-    }
-
-    public void setTanggal(LocalDateTime tanggal) {
-        this.tanggal = tanggal;
     }
 
     public String getNote() {
