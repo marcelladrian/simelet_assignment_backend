@@ -13,6 +13,7 @@ import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicI
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,7 @@ public class CardServiceImpl implements ICardInterface {
         cardEntity.setBalanceEntity(balanceEntity);
         cardEntity.setUser(usersEntity);
         cardEntity.setCardid(generateRandomPublicId.generateUserId(30));
+        cardEntity.setCreatedAt(LocalDateTime.now());
 
         CardEntity createdValue = cardRepository.save(cardEntity);
         CardDTO dtoValue = mapper.map(createdValue, CardDTO.class);
