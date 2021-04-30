@@ -5,8 +5,8 @@ import com.example.simelet_assignment_backend.io.irepository.UsersRepository;
 import com.example.simelet_assignment_backend.service.iservice.IServiceUsers;
 import com.example.simelet_assignment_backend.shared.dto.UsersDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
+import com.example.simelet_assignment_backend.shared.utils.HashingPassword;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,14 +15,12 @@ import java.time.LocalDateTime;
 public class UsersServiceImpl implements IServiceUsers {
     private final UsersRepository usersRepository;
     private final GenerateRandomPublicId generateRandomPublicId;
-    String pepper = "pepper";
-    int iterations = 200000;
-    int hashWidth = 256;
-    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);
+    private final HashingPassword hashingPassword;
 
-    public UsersServiceImpl(UsersRepository usersRepository, GenerateRandomPublicId generateRandomPublicId) {
+    public UsersServiceImpl(UsersRepository usersRepository, GenerateRandomPublicId generateRandomPublicId, HashingPassword hashingPassword) {
         this.usersRepository = usersRepository;
         this.generateRandomPublicId = generateRandomPublicId;
+        this.hashingPassword = hashingPassword;
     }
 
     @Override
@@ -41,8 +39,7 @@ public class UsersServiceImpl implements IServiceUsers {
         UsersEntity usersEntity = mapper.map(userDTO, UsersEntity.class);
         usersEntity.setCreatedAt(LocalDateTime.now());
 
-        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
-        String encodedPassword = pbkdf2PasswordEncoder.encode(usersEntity.getPassword());
+        String encodedPassword = hashingPassword.generateHashPassword(usersEntity.getPassword());
 
         usersEntity.setPassword(encodedPassword);
 
@@ -59,7 +56,8 @@ public class UsersServiceImpl implements IServiceUsers {
 
         UsersEntity usersEntity = usersRepository.findByUserName(userName);
 
-        if (usersEntity == null || !usersEntity.getPassword().equals(usersDTO.getPassword()))
+        boolean hash = hashingPassword.matching(usersDTO.getPassword(), usersEntity.getPassword());
+        if (usersEntity == null || !hash)
             return null;
 
         return mapper.map(usersEntity, UsersDTO.class);
@@ -73,8 +71,7 @@ public class UsersServiceImpl implements IServiceUsers {
         usersEntity.setNoHp(usersDTO.getNoHp());
         usersEntity.setName(usersDTO.getName());
         usersEntity.setEmail(usersDTO.getEmail());
-        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
-        String encodedPassword = pbkdf2PasswordEncoder.encode(usersEntity.getPassword());
+        String encodedPassword = hashingPassword.generateHashPassword(usersEntity.getPassword());
 
         usersEntity.setPassword(encodedPassword);
 

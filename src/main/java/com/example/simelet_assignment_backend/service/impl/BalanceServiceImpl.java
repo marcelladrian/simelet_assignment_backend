@@ -5,8 +5,8 @@ import com.example.simelet_assignment_backend.io.irepository.BalanceRepository;
 import com.example.simelet_assignment_backend.service.iservice.IBalanceInterface;
 import com.example.simelet_assignment_backend.shared.dto.BalanceDTO;
 import com.example.simelet_assignment_backend.shared.utils.GenerateRandomPublicId;
+import com.example.simelet_assignment_backend.shared.utils.HashingPassword;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,15 +15,12 @@ import java.time.LocalDateTime;
 public class BalanceServiceImpl implements IBalanceInterface {
     private final BalanceRepository balanceRepository;
     private final GenerateRandomPublicId generateRandomPublicId;
+    private final HashingPassword hashingPassword;
 
-    String pepper = "pepper";
-    int iterations = 200000;
-    int hashWidth = 256;
-    private final Pbkdf2PasswordEncoder pbkdf2PasswordEncoder = new Pbkdf2PasswordEncoder(pepper, iterations, hashWidth);;
-
-    public BalanceServiceImpl(BalanceRepository balanceRepository, GenerateRandomPublicId generateRandomPublicId) {
+    public BalanceServiceImpl(BalanceRepository balanceRepository, GenerateRandomPublicId generateRandomPublicId, HashingPassword hashingPassword) {
         this.balanceRepository = balanceRepository;
         this.generateRandomPublicId = generateRandomPublicId;
+        this.hashingPassword = hashingPassword;
     }
 
 
@@ -35,8 +32,7 @@ public class BalanceServiceImpl implements IBalanceInterface {
         balanceEntity.setBalanceid(generateRandomPublicId.generateUserId(30));
         balanceEntity.setCreatedAt(LocalDateTime.now());
 
-        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
-        String encodedPassword = pbkdf2PasswordEncoder.encode(balanceEntity.getPassword());
+        String encodedPassword = hashingPassword.generateHashPassword(balanceEntity.getPassword());
         balanceEntity.setPassword(encodedPassword);
 
         BalanceEntity createdValue = balanceRepository.save(balanceEntity);
@@ -50,8 +46,7 @@ public class BalanceServiceImpl implements IBalanceInterface {
 
         balanceEntity.setBalance(balanceDTO.getBalance());
 
-        pbkdf2PasswordEncoder.setEncodeHashAsBase64(true);
-        String encodedPassword = pbkdf2PasswordEncoder.encode(balanceEntity.getPassword());
+        String encodedPassword = hashingPassword.generateHashPassword(balanceDTO.getPassword());
         balanceEntity.setPassword(encodedPassword);
 
         BalanceEntity updatedValue = balanceRepository.save(balanceEntity);
