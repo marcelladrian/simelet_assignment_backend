@@ -44,13 +44,7 @@ public class BalanceServiceImpl implements IBalanceInterface {
         ModelMapper mapper = new ModelMapper();
         BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
 
-        long oldBalance = 0;
-        long newBalance = 0;
-
-        oldBalance = balanceEntity.getBalance();
-        newBalance = oldBalance + balanceDTO.getBalance();
-
-        balanceEntity.setBalance(newBalance);
+        balanceEntity.setBalance(balanceDTO.getBalance());
         balanceEntity.setUpdateAt(LocalDateTime.now());
 
         String encodedPassword = hashingPassword.generateHashPassword(balanceDTO.getPassword());

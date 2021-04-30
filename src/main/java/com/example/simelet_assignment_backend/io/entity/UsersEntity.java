@@ -53,6 +53,9 @@ public class UsersEntity implements Serializable {
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     public long getId() {
         return id;
     }
@@ -152,4 +155,12 @@ public class UsersEntity implements Serializable {
     public LocalDateTime getUpdateAt() { return updateAt; }
 
     public void setUpdateAt(LocalDateTime updateAt) { this.updateAt = updateAt; }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
 }

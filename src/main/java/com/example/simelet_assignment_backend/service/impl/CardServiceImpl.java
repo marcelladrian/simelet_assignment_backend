@@ -64,6 +64,11 @@ public class CardServiceImpl implements ICardInterface {
         ModelMapper mapper = new ModelMapper();
 
         UsersEntity usersEntity = userRepository.findByUserId(userId);
+
+        if (usersEntity == null || usersEntity.isDeleted() == true){
+            return null;
+        }
+
         BalanceEntity balanceEntity = balanceRepository.findByBalanceid(balanceId);
 
         CardEntity cardEntity = mapper.map(cardDTO, CardEntity.class);
@@ -97,6 +102,9 @@ public class CardServiceImpl implements ICardInterface {
 
         CardEntity entity = cardRepository.findByCardid(cardId);
         entity.setDeleted(true);
+
+        entity.setDeletedAt(LocalDateTime.now());
+
         CardEntity deletedCard = cardRepository.save(entity);
         return mapper.map(deletedCard, CardDTO.class);
     }

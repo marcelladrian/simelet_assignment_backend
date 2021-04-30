@@ -35,6 +35,9 @@ public class TransactionsEntity implements Serializable {
     @Column(nullable = false)
     private String transactionsId;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     public long getId() {
         return id;
     }
@@ -97,5 +100,13 @@ public class TransactionsEntity implements Serializable {
 
     public void setTransactionsId(String transactionsId) {
         this.transactionsId = transactionsId;
+    }
+
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 }

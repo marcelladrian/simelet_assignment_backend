@@ -55,6 +55,10 @@ public class TransactionsImpl implements IServiceTransactions {
         long amountInit = 0;
         CardEntity cardEntity = cardRepository.findByCardid(cardid);
 
+        if (cardEntity.isDeleted() == true){
+            return null;
+        }
+
         balanceInit = cardEntity.getBalanceEntity().getBalance();
         amountInit = transactionsDTO.getAmount();
 
@@ -103,6 +107,8 @@ public class TransactionsImpl implements IServiceTransactions {
 
         transactionsEntity.setCardEntity(cardEntity);
         transactionsEntity.setDeleted(true);
+
+        transactionsEntity.setDeletedAt(LocalDateTime.now());
 
         TransactionsEntity storedValue = transactionsRepository.save(transactionsEntity);
 

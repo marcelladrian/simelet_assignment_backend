@@ -87,6 +87,8 @@ public class UsersServiceImpl implements IServiceUsers {
 
         usersEntity.setDeleted(true);
 
+        usersEntity.setDeletedAt(LocalDateTime.now());
+
         UsersEntity value = usersRepository.save(usersEntity);
 
         return new ModelMapper().map(value, UsersDTO.class);
