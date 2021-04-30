@@ -34,6 +34,9 @@ public class BalanceEntity implements Serializable {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt;
+
     public long getId() {
         return id;
     }
@@ -89,4 +92,8 @@ public class BalanceEntity implements Serializable {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public LocalDateTime getUpdateAt() { return updateAt; }
+
+    public void setUpdateAt(LocalDateTime updateAt) { this.updateAt = updateAt; }
 }

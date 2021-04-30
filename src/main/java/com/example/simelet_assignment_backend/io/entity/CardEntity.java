@@ -40,6 +40,9 @@ public class CardEntity implements Serializable {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
+    private LocalDateTime updateAt;
+
     private boolean isDeleted = false;
 
     public boolean isDeleted() {
@@ -113,4 +116,8 @@ public class CardEntity implements Serializable {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public LocalDateTime getUpdateAt() { return updateAt; }
+
+    public void setUpdateAt(LocalDateTime updateAt) { this.updateAt = updateAt; }
 }

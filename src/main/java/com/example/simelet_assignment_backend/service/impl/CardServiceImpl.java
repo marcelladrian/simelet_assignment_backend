@@ -85,6 +85,7 @@ public class CardServiceImpl implements ICardInterface {
         CardEntity entity = cardRepository.findByCardid(cardId);
         entity.setName(cardDTO.getName());
         entity.setCardimage(cardDTO.getCardimage());
+        entity.setUpdateAt(LocalDateTime.now());
 
         CardEntity updatedValue = cardRepository.save(entity);
         return mapper.map(updatedValue, CardDTO.class);

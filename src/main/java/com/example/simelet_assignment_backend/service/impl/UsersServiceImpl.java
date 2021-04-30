@@ -71,6 +71,7 @@ public class UsersServiceImpl implements IServiceUsers {
         usersEntity.setNoHp(usersDTO.getNoHp());
         usersEntity.setName(usersDTO.getName());
         usersEntity.setEmail(usersDTO.getEmail());
+        usersEntity.setUpdateAt(LocalDateTime.now());
         String encodedPassword = hashingPassword.generateHashPassword(usersEntity.getPassword());
 
         usersEntity.setPassword(encodedPassword);
